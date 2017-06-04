@@ -17,11 +17,13 @@
 可以改成这样
 
 ```
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
     [cell.imageView requestThumbnailUrl:imageObject.serverID
                                    size:thumbnailSize
                                  finish:
-             ^(NSDictionary * imageUrls, NSError * error) {
+             ^(NSDictionary * imageUrls, NSError * error)
+	     {
                  if (!error) {
                     //判断 cell.imageId 是否和 imageUrls 中一致（重用替换）
                     //拿到 url
@@ -41,11 +43,11 @@
                        size:(CGSize)size
                      finish:(void (^)(NSDictionary * imageUrls, NSError * error))finish
 {
-	if (!imageID)
-		return;
-    
-	// Cancel
-    if (self.imageId) {
+    if (!imageID) {
+        return;
+    }
+    // Cancel last
+    if (self.imageId) {
         [[MCGalleryRequestURLManager sharedManager] removeRequestWithImageId:self.imageId];
         self.imageId = nil;
     }
